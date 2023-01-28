@@ -21,32 +21,31 @@ public class ApplicationUser : IEntity, IAuditable
         EmailAddress = emailAddress;
         Name = name;
         Status = UserStatus.Active;
+        Username = CreateUsername(emailAddress);
     }
-    
-    private readonly List<ApplicationUserRole> _roles = new List<ApplicationUserRole>();
-    public IReadOnlyList<ApplicationUserRole> Roles => _roles.AsReadOnly();
 
-    public string Name { get; private set; }
-    public string EmailAddress { get; private set; }
-    public UserStatus Status { get; private set; }
-    public DateTime? SuspendedUntil { get; private set; }
-
-    public void SetName(string name)
+    /// <summary>
+    /// Creates username from email address,
+    /// </summary>
+    /// <example>
+    /// email = manzur123@gmail.com
+    /// username = @manzur123
+    /// </example>
+    /// <param name="email"></param>
+    /// <returns></returns>
+    private static string CreateUsername(string email)
     {
-        //TODO: Only a user can update his own name
-        this.Name = name;
+        return $"@{email.Split("@")[0]}";
     }
 
-    public void Ban()
-    {
-        this.Status = UserStatus.Banned;
-    }
+    public string Username { get; set; }
+    public string Name { get; set; }
+    public string EmailAddress { get; set; }
+    public UserStatus Status { get; set; }
+    public DateTime? SuspendedUntil { get; set; }
 
-    public void Suspend()
-    {
-        this.SuspendedUntil = DateTime.UtcNow.AddMonths(2);
-    }
-
+    public Guid RoleId { get; set; }
+    public Role Role { get; set; }
     public bool IsAllowedToSignIn()
     {
         return Status == UserStatus.Active && !IsSuspended();
@@ -56,5 +55,4 @@ public class ApplicationUser : IEntity, IAuditable
     {
         return SuspendedUntil != null && SuspendedUntil > DateTime.UtcNow;
     }
-
 }

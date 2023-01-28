@@ -2,12 +2,15 @@
 
 namespace StackOverflow.GPT.Core.Administration.Models;
 
-public class ApplicationUserRole : IAuditable
+public class AdminUser: IEntity, IAuditable
 {
-    public Guid RoleId { get; set; }
-    public Guid ApplicationUserId { get; set; }
+    public Guid Id { get; set; }
     public DateTime? CreatedAt { get; set; }
     public string? CreatedBy { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public string? LastUpdatedBy { get; set; }
+    public string Name { get; set; }
+    public string EmailAddress { get; set; }
+    public Guid RoleId { get; set; }
+    public Role Role { get; set; }
 }

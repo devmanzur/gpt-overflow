@@ -22,6 +22,6 @@ public class AccessPermission : IEntity, IAuditable
     public DateTime? LastUpdatedAt { get; set; }
     public string? LastUpdatedBy { get; set; }
 
-    public Permission Name { get; private set; }
-    public string DisplayName { get; private set; }
+    public Permission Name { get; set; }
+    public string DisplayName { get; set; }
 }

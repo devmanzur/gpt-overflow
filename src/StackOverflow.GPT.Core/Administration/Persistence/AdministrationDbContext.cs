@@ -6,15 +6,16 @@ using StackOverflow.GPT.Core.Shared.Persistence;
 
 namespace StackOverflow.GPT.Core.Administration.Persistence;
 
-public class AdministrationContext : BaseDbContext<AdministrationContext>
+public class AdministrationDbContext : BaseDbContext<AdministrationDbContext>
 {
-    public AdministrationContext(DbContextOptions<AdministrationContext> options,
+    public AdministrationDbContext(DbContextOptions<AdministrationDbContext> options,
         IDomainEventsDispatcher domainEventsDispatcher, IHttpContextAccessor httpContextAccessor) : base(options,
         domainEventsDispatcher, httpContextAccessor)
     {
     }
 
     public DbSet<ApplicationUser> Users { get; set; }
+    public DbSet<AdminUser> Admins { get; set; }
     public DbSet<Role> Roles { get; set; }
     public DbSet<AccessPermission> AccessPermissions { get; set; }
 }
