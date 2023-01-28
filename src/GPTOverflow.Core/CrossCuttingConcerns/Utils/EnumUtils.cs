@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Text;
 
-namespace GPTOverflow.Core.CrossCuttinConcerns.Utils;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Utils;
 
 public static class EnumUtils
 {

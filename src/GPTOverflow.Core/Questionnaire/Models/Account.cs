@@ -1,4 +1,4 @@
-﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 
 namespace GPTOverflow.Core.Questionnaire.Models;
 
@@ -16,6 +16,9 @@ public class Account : AggregateRoot, IAuditable
     public string? CreatedBy { get; set; }
     public DateTime? LastUpdatedAt { get; set; }
     public string? LastUpdatedBy { get; set; }
+    
+    private readonly List<AccountBadge> _badges = new List<AccountBadge>();
+    public IReadOnlyList<AccountBadge> Badges => _badges.AsReadOnly();
     
     private readonly List<Comment> _comments = new List<Comment>();
     public IReadOnlyList<Comment> Comments => _comments.AsReadOnly();

@@ -1,11 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection;
-using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace GPTOverflow.Core.CrossCuttinConcerns.Utils;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Utils;
 
 public static class EntityFrameworkExtensions
 {

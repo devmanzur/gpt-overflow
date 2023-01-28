@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 
 public interface IDomainEvent : INotification
 {

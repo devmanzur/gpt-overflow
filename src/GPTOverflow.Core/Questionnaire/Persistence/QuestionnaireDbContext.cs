@@ -1,5 +1,5 @@
-﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
-using GPTOverflow.Core.CrossCuttinConcerns.Persistence;
+﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttingConcerns.Persistence;
 using GPTOverflow.Core.Questionnaire.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -17,4 +17,6 @@ public class QuestionnaireDbContext : BaseDbContext<QuestionnaireDbContext>
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<Flag> Flags { get; set; }
+    public DbSet<Tag> Tags { get; set; }
+    public DbSet<Badge> Badges { get; set; }
 }

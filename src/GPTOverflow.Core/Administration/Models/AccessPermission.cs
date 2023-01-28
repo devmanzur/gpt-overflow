@@ -1,5 +1,5 @@
-﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
-using GPTOverflow.Core.CrossCuttinConcerns.Utils;
+﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttingConcerns.Utils;
 
 namespace GPTOverflow.Core.Administration.Models;
 

@@ -1,4 +1,4 @@
-namespace GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 
 /// <summary>
 /// Entities that should never be deleted from the database but instead appear as deleted in queries and views

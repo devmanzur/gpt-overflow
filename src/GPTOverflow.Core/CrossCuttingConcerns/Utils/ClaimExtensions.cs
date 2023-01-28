@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace GPTOverflow.Core.CrossCuttinConcerns.Utils;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Utils;
 
 public static class ClaimExtensions
 {

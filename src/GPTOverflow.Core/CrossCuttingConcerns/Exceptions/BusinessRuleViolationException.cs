@@ -1,4 +1,4 @@
-namespace GPTOverflow.Core.CrossCuttinConcerns.Exceptions;
+namespace GPTOverflow.Core.CrossCuttingConcerns.Exceptions;
 
 /// <summary>
 /// This is used as the go to exception for any system constraint violation

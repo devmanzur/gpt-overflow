@@ -1,4 +1,4 @@
-﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 
 namespace GPTOverflow.Core.Questionnaire.Models;
 
@@ -16,6 +16,9 @@ public class Question : AggregateRoot, IAuditable, ISoftDeletable
     public Guid AccountId { get; set; }
     public QuestionStatus Status { get;  set; }
     public string? ClosingRemark { get;  set; }
+    
+    private readonly List<QuestionTag> _tags = new List<QuestionTag>();
+    public IReadOnlyList<QuestionTag> Tags => _tags.AsReadOnly();
     
     private readonly List<Vote> _votes = new List<Vote>();
     public IReadOnlyList<Vote> Votes => _votes.AsReadOnly();
