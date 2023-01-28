@@ -1,9 +1,9 @@
-﻿using GPTOverflow.Core.Shared.Contracts;
+﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace GPTOverflow.Core.Shared.Persistence;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Persistence;
 
 public abstract class BaseDomainEventDispatcher : IDomainEventsDispatcher
 {

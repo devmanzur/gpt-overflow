@@ -1,4 +1,4 @@
-﻿using GPTOverflow.Core.Shared.Contracts;
+﻿using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
 
 namespace GPTOverflow.Core.Administration.Models;
 

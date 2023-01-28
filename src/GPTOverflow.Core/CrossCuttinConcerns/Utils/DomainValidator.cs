@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using GPTOverflow.Core.Shared.Exceptions;
+using GPTOverflow.Core.CrossCuttinConcerns.Exceptions;
 
-namespace GPTOverflow.Core.Shared.Utils;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Utils;
 
 public static class DomainValidator
 {

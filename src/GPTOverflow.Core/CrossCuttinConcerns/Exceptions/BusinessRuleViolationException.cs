@@ -1,4 +1,4 @@
-namespace GPTOverflow.Core.Shared.Exceptions;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Exceptions;
 
 /// <summary>
 /// This is used as the go to exception for any system constraint violation

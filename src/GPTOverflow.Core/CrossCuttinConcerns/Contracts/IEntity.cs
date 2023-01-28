@@ -1,4 +1,4 @@
-﻿namespace GPTOverflow.Core.Shared.Contracts;
+﻿namespace GPTOverflow.Core.CrossCuttinConcerns.Contracts;
 
 public interface IEntity
 {

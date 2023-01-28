@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace GPTOverflow.Core.Shared.Contracts
+namespace GPTOverflow.Core.CrossCuttinConcerns.Contracts
 {
     /// <summary>
     /// All domain events generated as part of a *Write* operation

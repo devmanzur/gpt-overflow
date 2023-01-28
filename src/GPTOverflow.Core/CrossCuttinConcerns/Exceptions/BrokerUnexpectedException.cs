@@ -1,4 +1,4 @@
-﻿namespace GPTOverflow.Core.Shared.Exceptions;
+﻿namespace GPTOverflow.Core.CrossCuttinConcerns.Exceptions;
 
 public class BrokerUnexpectedException : BaseApplicationException
 {

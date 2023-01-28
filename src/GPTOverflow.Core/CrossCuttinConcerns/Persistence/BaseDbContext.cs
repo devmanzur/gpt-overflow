@@ -1,11 +1,11 @@
 ﻿using System.Security.Claims;
-using GPTOverflow.Core.Shared.Contracts;
+using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttinConcerns.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using GPTOverflow.Core.Shared.Utils;
 
-namespace GPTOverflow.Core.Shared.Persistence;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Persistence;
 
 public abstract class BaseDbContext<T> : DbContext where T : DbContext
 {

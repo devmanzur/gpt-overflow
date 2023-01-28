@@ -1,7 +1,7 @@
 using FluentValidation;
-using GPTOverflow.Core.Shared.Utils;
+using GPTOverflow.Core.CrossCuttinConcerns.Utils;
 
-namespace GPTOverflow.Core.Shared.Contracts;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Contracts;
 
 /// <summary>
 /// All entities that act as the entry point and manage other internal entities should extend this one

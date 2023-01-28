@@ -1,6 +1,6 @@
 ﻿using FluentValidation.Results;
 
-namespace GPTOverflow.Core.Shared.Exceptions;
+namespace GPTOverflow.Core.CrossCuttinConcerns.Exceptions;
 
 public class DomainValidationException : BusinessRuleViolationException
 {

@@ -1,6 +1,6 @@
 ﻿using GPTOverflow.Core.Administration.Models;
-using GPTOverflow.Core.Shared.Contracts;
-using GPTOverflow.Core.Shared.Persistence;
+using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttinConcerns.Persistence;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 

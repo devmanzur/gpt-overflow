@@ -1,5 +1,5 @@
 ﻿using GPTOverflow.Core.Administration.Events;
-using GPTOverflow.Core.Shared.Contracts;
+using GPTOverflow.Core.CrossCuttinConcerns.Contracts;
 
 namespace GPTOverflow.Core.Administration.Models;
 public class Role : AggregateRoot
