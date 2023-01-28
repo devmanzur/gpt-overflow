@@ -1,11 +1,13 @@
-﻿using GPTOverflow.Core.Questionnaire.Models.DataTransferObjects;
+﻿using GPTOverflow.Core.Questionnaire.Models;
+using GPTOverflow.Core.Questionnaire.Models.DataTransferObjects;
+using GPTOverflow.Core.Questionnaire.Persistence;
 using MediatR;
 
 namespace GPTOverflow.Core.Questionnaire.Features;
 
 public static class SearchQuestion
 {
-    public record Query(string Title) : IRequest<QueryResponse>;
+    public record Query(string TitleQuery) : IRequest<QueryResponse>;
 
     public record QueryResponse
     {
@@ -14,13 +16,17 @@ public static class SearchQuestion
     
     internal class Handler : IRequestHandler<Query,QueryResponse>
     {
-        public Handler()
+        private readonly QuestionnaireDbContext _context;
+
+        public Handler(QuestionnaireDbContext context)
         {
-            
+            _context = context;
         }
-        public Task<QueryResponse> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<QueryResponse> Handle(Query request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var matchingQuestions = "write raw query here";
+
+            return new QueryResponse();
         }
     }
 }
