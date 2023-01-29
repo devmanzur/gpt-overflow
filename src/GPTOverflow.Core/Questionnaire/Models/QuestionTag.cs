@@ -1,7 +1,10 @@
-﻿namespace GPTOverflow.Core.Questionnaire.Models;
+﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 
-public class QuestionTag
+namespace GPTOverflow.Core.Questionnaire.Models;
+
+public class QuestionTag : IEntity
 {
     public Guid QuestionId { get; set; }
     public Guid TagId { get; set; }
+    public Guid Id { get; set; }
 }

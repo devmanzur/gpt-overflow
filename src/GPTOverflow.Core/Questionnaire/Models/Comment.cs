@@ -17,5 +17,8 @@ public class Comment : IEntity, IAuditable
     /// Foreign key relation with the parent
     /// </summary>
     public Guid? QuestionId { get; set; }
+
+    public Question? Question { get; set; }
     public Guid? AnswerId { get; set; }
+    public Answer? Answer { get; set; }
 }

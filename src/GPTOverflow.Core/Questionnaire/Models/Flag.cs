@@ -24,9 +24,13 @@ public class Flag : IEntity, IAuditable
     /// Foreign key relation with the parent
     /// </summary>
     public Guid? AccountId { get; set; }
+    public Account? Account { get; set; }
     public Guid? QuestionId { get; set; }
+    public Question? Question { get; set; }
     public Guid? AnswerId { get; set; }
+    public Answer? Answer { get; set; }
     public Guid? CommentId { get; set; }
+    public Comment? Comment { get; set; }
 
 }
 

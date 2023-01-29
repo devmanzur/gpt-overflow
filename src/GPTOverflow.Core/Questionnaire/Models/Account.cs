@@ -2,8 +2,12 @@
 
 namespace GPTOverflow.Core.Questionnaire.Models;
 
-public class Account : AggregateRoot, IAuditable
+public class Account : AggregateRoot, IAuditable, ISoftDeletable
 {
+    protected Account()
+    {
+        
+    }
     public Account(string username)
     {
         Username = username;
@@ -28,4 +32,5 @@ public class Account : AggregateRoot, IAuditable
     
     private readonly List<Question> _questions = new List<Question>();
     public IReadOnlyList<Question> Questions => _questions.AsReadOnly();
+    public bool IsSoftDeleted { get; set; }
 }

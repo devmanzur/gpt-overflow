@@ -1,6 +1,7 @@
 ﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
 using GPTOverflow.Core.CrossCuttingConcerns.Persistence;
 using GPTOverflow.Core.Questionnaire.Models;
+using GPTOverflow.Core.Questionnaire.Persistence.Configurations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,4 +20,20 @@ public class QuestionnaireDbContext : BaseDbContext<QuestionnaireDbContext>
     public DbSet<Flag> Flags { get; set; }
     public DbSet<Tag> Tags { get; set; }
     public DbSet<Badge> Badges { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.HasDefaultSchema("questionnaire");
+        base.OnModelCreating(builder);
+        builder.ApplyConfiguration(new AccountConfig());
+        builder.ApplyConfiguration(new AnswerConfig());
+        builder.ApplyConfiguration(new BadgeConfig());
+        builder.ApplyConfiguration(new CommentConfig());
+        builder.ApplyConfiguration(new FlagConfig());
+        builder.ApplyConfiguration(new QuestionConfig());
+        builder.ApplyConfiguration(new QuestionViewConfig());
+        builder.ApplyConfiguration(new TagConfig());
+        builder.ApplyConfiguration(new VoteConfig());
+
+    }
 }

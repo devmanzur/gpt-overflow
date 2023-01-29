@@ -16,7 +16,7 @@ public abstract class AggregateRoot : IEntity
 
 
     protected static void CheckRules<T, TV>(T instance) where T : class where TV : IValidator<T>, new() =>
-        DomainValidator.Validate<T, TV>(instance);
+        RuleValidator.Validate<T, TV>(instance);
 
     public void AddDomainEvent(IDomainEvent domainEvent)
     {
