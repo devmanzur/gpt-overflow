@@ -39,7 +39,7 @@ public static class HttpClientExtensions
         }
 
         var error = await response.Content.ReadAsStringAsync();
-        throw new Exception($"Api returned error response, Error: {error}");
+        throw new Exception($"Api returned error response, Error: {error} Code: {response.StatusCode}");
     }
 
     public static async Task<T> SendPutRequestAsync<T>(this HttpClient httpClient, RequestModel requestModel)
@@ -57,7 +57,7 @@ public static class HttpClientExtensions
         }
 
         var error = await response.Content.ReadAsStringAsync();
-        throw new Exception($"Api returned error response, Error: {error}");
+        throw new Exception($"Api returned error response, Error: {error} Code: {response.StatusCode}");
     }
 
     public static async Task<T> SendEncodedPostRequestAsync<T>(this HttpClient httpClient, RequestModel requestModel)
@@ -80,7 +80,7 @@ public static class HttpClientExtensions
         }
 
         var error = await response.Content.ReadAsStringAsync();
-        throw new Exception($"Api returned error response, Error: {error}");
+        throw new Exception($"Api returned error response, Error: {error} Code: {response.StatusCode}");
     }
 
     public static async Task<T> SendGetRequestAsync<T>(this HttpClient httpClient, RequestModel requestModel)
@@ -95,8 +95,8 @@ public static class HttpClientExtensions
         {
             return await response.Content.ReadFromJsonAsync<T>() ?? throw new Exception("Failed to parse response");
         }
-
-        throw new Exception("Api returned error response");
+        var error = await response.Content.ReadAsStringAsync();
+        throw new Exception($"Api returned error response, Error: {error} Code: {response.StatusCode}");
     }
 
     public static async Task<T> SendDeleteRequestAsync<T>(this HttpClient httpClient, RequestModel requestModel)
@@ -112,7 +112,8 @@ public static class HttpClientExtensions
             return await response.Content.ReadFromJsonAsync<T>() ?? throw new Exception("Failed to parse response");
         }
 
-        throw new Exception("Api returned error response");
+        var error = await response.Content.ReadAsStringAsync();
+        throw new Exception($"Api returned error response, Error: {error} Code: {response.StatusCode}");
     }
 }
 

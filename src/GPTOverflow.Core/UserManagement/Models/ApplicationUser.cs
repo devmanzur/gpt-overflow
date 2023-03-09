@@ -1,4 +1,5 @@
 ﻿using GPTOverflow.Core.CrossCuttingConcerns.Contracts;
+using GPTOverflow.Core.CrossCuttingConcerns.Utils;
 using GPTOverflow.Core.UserManagement.Events;
 
 namespace GPTOverflow.Core.UserManagement.Models;
@@ -24,24 +25,10 @@ public class ApplicationUser : AggregateRoot, IAuditable
     public ApplicationUser(string emailAddress)
     {
         EmailAddress = emailAddress;
-        Username = CreateUsername(emailAddress);
-        Name = CreateUsername(emailAddress);
+        Username = DomainUtils.CreateUsername(emailAddress);
+        Name = DomainUtils.CreateUsername(emailAddress);
         Status = UserStatus.Active;
         AddDomainEvent(new UserCreated.Event(this));
-    }
-
-    /// <summary>
-    /// Creates username from email address,
-    /// </summary>
-    /// <example>
-    /// email = manzur123@gmail.com
-    /// username = @manzur123
-    /// </example>
-    /// <param name="email"></param>
-    /// <returns></returns>
-    private static string CreateUsername(string email)
-    {
-        return $"@{email.Split("@")[0]}";
     }
 
     public string Username { get; set; }

@@ -4,6 +4,7 @@ using Bogus;
 using FluentAssertions;
 using GPTOverflow.API.Tests.Acceptance._config;
 using GPTOverflow.API.Tests.Acceptance._config.Brokers;
+using Microsoft.AspNetCore.Mvc.Testing;
 using NetArchTest.Rules;
 using Xunit;
 
@@ -19,7 +20,10 @@ public partial class UsersControllerTests
     public UsersControllerTests(GptOverflowApi api)
     {
         _api = api;
-        _apiBroker = new ApiBroker(api.CreateClient());
+        _apiBroker = new ApiBroker(api.CreateClient(new WebApplicationFactoryClientOptions
+        {
+            AllowAutoRedirect = false
+        }));
         _faker = new Faker();
         new Fixture().Customize(new AutoMoqCustomization()
         {
@@ -47,19 +51,5 @@ public partial class UsersControllerTests
             .GetResult();
 
         result.IsSuccessful.Should().BeTrue();
-    }
-
-    /// <summary>
-    /// Creates username from email address,
-    /// </summary>
-    /// <example>
-    /// email = manzur123@gmail.com
-    /// username = @manzur123
-    /// </example>
-    /// <param name="email"></param>
-    /// <returns></returns>
-    private static string CreateUsername(string email)
-    {
-        return $"@{email.Split("@")[0]}";
     }
 }

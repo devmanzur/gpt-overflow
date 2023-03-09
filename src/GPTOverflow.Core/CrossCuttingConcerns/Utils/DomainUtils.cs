@@ -1,6 +1,6 @@
 ﻿namespace GPTOverflow.Core.CrossCuttingConcerns.Utils;
 
-public static class CoreUtils
+public static class DomainUtils
 {
     /// <summary>
     /// Creates username from email address,

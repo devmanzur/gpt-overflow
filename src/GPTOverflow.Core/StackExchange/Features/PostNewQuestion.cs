@@ -11,7 +11,7 @@ namespace GPTOverflow.Core.StackExchange.Features;
 public class PostNewQuestion
 {
     public record Command
-        (Guid UserId, string Title, string Description, List<string>? Tags) : ICommand<CommandResponse>;
+        (string Username, string Title, string Description, List<string>? Tags) : ICommand<CommandResponse>;
 
     public record CommandResponse(string Id, string Title, string Description) : BaseDto(Id);
 
@@ -22,14 +22,9 @@ public class PostNewQuestion
         public CommandValidator(StackExchangeDbContext context)
         {
             _context = context;
-            RuleFor(x => x.UserId).NotNull().NotEmpty().MustAsync(UserExists).WithMessage("Invalid user id");
+            RuleFor(x => x.Username).NotNull().NotEmpty().WithMessage("Invalid user");
             RuleFor(x => x.Title).NotNull().NotEmpty().MaximumLength(2000).WithMessage("Invalid title");
             RuleFor(x => x.Description).NotNull().NotEmpty().WithMessage("Description must not be empty");
-        }
-
-        private async Task<bool> UserExists(Guid userId, CancellationToken cancellationToken)
-        {
-            return await _context.Accounts.AnyAsync(x => x.Id == userId, cancellationToken: cancellationToken);
         }
     }
 
@@ -46,11 +41,17 @@ public class PostNewQuestion
         {
             await RuleValidator.ValidateAsync(request, new CommandValidator(_context));
 
+            var account = await _context.Accounts.FirstOrDefaultAsync(x => x.Username == request.Username,
+                cancellationToken: cancellationToken);
+            if (account == null)
+            {
+                return Result.Failure<CommandResponse>("Account not found");
+            }
             var question = new Question()
             {
                 Title = request.Title,
                 Description = request.Description,
-                AccountId = request.UserId,
+                AccountId = account.Id,
             };
 
             if (request.Tags != null && request.Tags.Any())

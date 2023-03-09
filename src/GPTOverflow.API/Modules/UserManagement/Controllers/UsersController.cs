@@ -1,7 +1,6 @@
 ﻿using GPTOverflow.API.Modules.CrossCuttingConcerns.Controllers;
 using GPTOverflow.API.Modules.CrossCuttingConcerns.Models;
 using GPTOverflow.API.Modules.UserManagement.Models;
-using GPTOverflow.Core.CrossCuttingConcerns.Utils;
 using GPTOverflow.Core.UserManagement.Features;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +19,7 @@ public class UsersController : ApiController
     [HttpGet]
     public async Task<ActionResult<Envelope<GetUser.Response>>> GetProfile()
     {
-        var profile = await _mediator.Send(new GetUser.Query(User.GetUserEmail()));
+        var profile = await _mediator.Send(new GetUser.Query(AuthorizedUser.Username));
         return Ok(Envelope.Ok(profile));
     }
 

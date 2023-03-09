@@ -1,4 +1,5 @@
-﻿using GPTOverflow.Core.CrossCuttingConcerns.Utils;
+﻿using System.Security.Claims;
+using GPTOverflow.Core.CrossCuttingConcerns.Utils;
 using Microsoft.IO;
 
 namespace GPTOverflow.API.Modules.CrossCuttingConcerns.Middlewares;
@@ -39,7 +40,7 @@ public class RequestResponseLoggingMiddleware : IFactoryMiddleware
 
             await context.Request.Body.CopyToAsync(requestStream);
 
-            var user = context.User.GetUserId();
+            var user = context.User.GetValue(ClaimTypes.NameIdentifier);
 
             _logger.LogInformation(message:
                 "Http Request Information: {Environment}  Schema:{Schema} Host: {Host} Path: {Path}, QueryString: {QueryString}, Request Body: {RequestBody}, User: {User}",
@@ -103,7 +104,7 @@ public class RequestResponseLoggingMiddleware : IFactoryMiddleware
 
             context.Response.Body.Seek(0, SeekOrigin.Begin);
 
-            var user = context.User.GetUserId();
+            var user = context.User.GetValue(ClaimTypes.NameIdentifier);
 
             _logger.LogInformation(
                 "StatusCode: {StatusCode}, Http Response Information: {Environment}   Schema:{Schema} Host: {Host} Path: {Path} QueryString: {QueryString} ElapsedTime: {ElapsedTime} Response Body: {ResponseBody} User: {User}",

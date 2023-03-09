@@ -21,7 +21,7 @@ public class QuestionsController : ApiController
     public async Task<ActionResult<Envelope<QuestionDto>>> CreateQuestion([FromBody] PostNewQuestionRequest request)
     {
         var result = await _mediator
-            .Send(new PostNewQuestion.Command(GetUserId(), request.Title, request.Description, request.Tags));
+            .Send(new PostNewQuestion.Command(AuthorizedUser.Username, request.Title, request.Description, request.Tags));
         return result.IsSuccess ? Ok(Envelope.Ok(result.Value)) : BadRequest(Envelope.Error(result.Error));
     }
 }

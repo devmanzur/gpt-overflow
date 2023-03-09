@@ -10,7 +10,7 @@ namespace GPTOverflow.Core.UserManagement.Features;
 
 public class GetUser
 {
-    public record Query(string Email) : IRequest<Response>;
+    public record Query(string Username) : IRequest<Response>;
 
     public record Response(string Id, string Email, string Username, string Name, bool Suspended,string Status) : BaseDto(Id);
 
@@ -21,12 +21,12 @@ public class GetUser
         public QueryValidator(UserManagementDbContext context)
         {
             _context = context;
-            RuleFor(x => x.Email).NotNull().NotEmpty().MustAsync(RegisteredUser).WithMessage("Invalid user");
+            RuleFor(x => x.Username).NotNull().NotEmpty().MustAsync(RegisteredUser).WithMessage("Invalid user");
         }
 
-        private Task<bool> RegisteredUser(string email, CancellationToken cancellationToken)
+        private Task<bool> RegisteredUser(string username, CancellationToken cancellationToken)
         {
-            return _context.Users.AnyAsync(x => x.EmailAddress == email, cancellationToken: cancellationToken);
+            return _context.Users.AnyAsync(x => x.Username == username, cancellationToken: cancellationToken);
         }
     }
 
@@ -44,7 +44,7 @@ public class GetUser
             await RuleValidator.ValidateAsync(request, new QueryValidator(_context));
 
             var user = await _context.Users.AsNoTracking()
-                .SingleAsync(x => x.EmailAddress == request.Email,
+                .SingleAsync(x => x.Username == request.Username,
                 cancellationToken: cancellationToken);
             
             return new Response(user.Id.ToString(), user.EmailAddress, user.Username, user.Name,

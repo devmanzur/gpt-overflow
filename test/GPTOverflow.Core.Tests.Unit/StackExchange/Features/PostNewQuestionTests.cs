@@ -43,7 +43,7 @@ public class PostNewQuestionTests
         dbContext.Tags.AddRange(mockedTags);
         await dbContext.SaveChangesAsync();
         _fixture.Inject(dbContext);
-        var accountId = account.Id;
+        var accountId = account.Username;
         var title = Faker.Random.String();
         var description = Faker.Random.String();
         var tags = mockedTags.Select(x => x.Name).ToList();
@@ -83,13 +83,13 @@ public class PostNewQuestionTests
 
     [Theory]
     [MemberData(nameof(GetCommandParameters))]
-    public async Task Should_ThrowValidationException_When_CommandArgumentsAreInvalid(Guid accountId, string title,
+    public async Task Should_ThrowValidationException_When_CommandArgumentsAreInvalid(string username, string title,
         string description,
         string[]? tags)
 
     {
         // Arrange
-        var command = new Command(accountId, title, description,
+        var command = new Command(username, title, description,
             tags == null ? new List<string>() : new List<string>(tags));
         using var testDatabaseProvider = new TestDatabaseProvider<StackExchangeDbContext>();
         await using var dbContext = await testDatabaseProvider.ContextFactory.CreateDbContextAsync();
@@ -108,11 +108,11 @@ public class PostNewQuestionTests
         yield return new object[] { null, null, null, null };
         yield return new object[] { null, null, null, new string[] { "Tag1", "Tag2" } };
         yield return new object[] { null, null, "Description", new string[] { "Tag1", "Tag2" } };
-        yield return new object[] { null, "Title", "Description", new string[] { "Tag1", "Tag2" } };
-        yield return new object[] { Guid.NewGuid(), null, "Description", new string[] { "Tag1", "Tag2" } };
-        yield return new object[] { Guid.NewGuid(), "", "Description", new string[] { "Tag1", "Tag2" } };
-        yield return new object[] { Guid.NewGuid(), "Title", null, new string[] { "Tag1", "Tag2" } };
-        yield return new object[] { Guid.NewGuid(), "Title", "", new string[] { "Tag1", "Tag2" } };
+        yield return new object[] { "", "Title", "Description", new string[] { "Tag1", "Tag2" } };
+        yield return new object[] {"fdsfsdfd", null, "Description", new string[] { "Tag1", "Tag2" } };
+        yield return new object[] { "fsdfsdfsd", "", "Description", new string[] { "Tag1", "Tag2" } };
+        yield return new object[] { "fsdfsdfsdf", "Title", null, new string[] { "Tag1", "Tag2" } };
+        yield return new object[] { "dfsdfsdfsdfd", "Title", "", new string[] { "Tag1", "Tag2" } };
         yield return new object[]
             { Guid.NewGuid(), Faker.Random.String(2001), "Description", new string[] { "Tag1", "Tag2" } };
         yield return new object[] { Guid.NewGuid(), Faker.Random.String(2001), "Description", null };
@@ -133,11 +133,11 @@ public class PostNewQuestionTests
         dbContext.Tags.AddRange(mockedTags);
         await dbContext.SaveChangesAsync();
         _fixture.Inject(dbContext);
-        var accountId = Faker.Random.Guid();
+        var username = Faker.Person.UserName;
         var title = Faker.Random.String();
         var description = Faker.Random.String();
         var tags = mockedTags.Select(x => x.Name).ToList();
-        var command = new Command(accountId, title, description, tags);
+        var command = new Command(username, title, description, tags);
         var handler = _fixture.Create<Handler>();
 
         // Act
@@ -162,11 +162,11 @@ public class PostNewQuestionTests
         dbContext.Accounts.Add(account);
         await dbContext.SaveChangesAsync();
         _fixture.Inject(dbContext);
-        var accountId = account.Id;
+        var username = account.Username;
         var title = Faker.Random.String();
         var description = Faker.Random.String();
         var tags = mockedTags.Select(x => x.Name).ToList();
-        var command = new Command(accountId, title, description, tags);
+        var command = new Command(username, title, description, tags);
         var expectedResult = Result.Failure("Invalid tags");
         var handler = _fixture.Create<Handler>();
 

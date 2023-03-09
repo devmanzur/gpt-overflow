@@ -10,7 +10,7 @@ public static class ConfigureAuthentication
     public static void AddAuth0(this IServiceCollection services, IConfiguration configuration)
     {
         var config = new AuthenticationConfig();
-        configuration.GetSection(AuthenticationConfig.Key).Bind(config);
+        configuration.GetSection(nameof(AuthenticationConfig)).Bind(config);
 
         services.AddAuthentication(options =>
         {
@@ -22,7 +22,7 @@ public static class ConfigureAuthentication
             options.Audience = config.Audience;
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                NameClaimType = ClaimTypes.NameIdentifier
+                NameClaimType = ClaimTypes.NameIdentifier,
             };
         });
 
@@ -31,6 +31,9 @@ public static class ConfigureAuthentication
             options.AddPolicy(config.ApiAccessScope,
                 policy => policy.Requirements.Add(new HasScopeRequirement(config.ApiAccessScope,
                     config.Authority)));
+            options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
         });
         
         services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
@@ -38,7 +41,6 @@ public static class ConfigureAuthentication
 
     class AuthenticationConfig
     {
-        public const string Key = "Auth0";
         public string Authority { get; set; }
         public string Audience { get; set; }
         public string ApiAccessScope { get; set; }

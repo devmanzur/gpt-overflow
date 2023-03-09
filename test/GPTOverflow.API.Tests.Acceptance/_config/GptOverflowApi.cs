@@ -3,6 +3,8 @@ using DotNet.Testcontainers.Configurations;
 using DotNet.Testcontainers.Containers;
 using GPTOverflow.Core.StackExchange.Brokers.Persistence;
 using GPTOverflow.Core.UserManagement.Brokers.Persistence;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -29,25 +31,34 @@ public class GptOverflowApi : WebApplicationFactory<Program>, IAsyncLifetime
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.ConfigureTestServices(collection =>
+        builder.ConfigureTestServices(services =>
         {
-            collection.RemoveDbContext<UserManagementDbContext>();
+            services.RemoveDbContext<UserManagementDbContext>();
 
-            collection.AddDbContext<UserManagementDbContext>(options =>
+            services.AddDbContext<UserManagementDbContext>(options =>
             {
                 options.UseSqlServer(
                         $"{_dbContainer.ConnectionString};Integrated Security=True;TrustServerCertificate=True;Trusted_Connection=False")
                     .UseSnakeCaseNamingConvention();
             });
             
-            collection.RemoveDbContext<StackExchangeDbContext>();
+            services.RemoveDbContext<StackExchangeDbContext>();
 
-            collection.AddDbContext<StackExchangeDbContext>(options =>
+            services.AddDbContext<StackExchangeDbContext>(options =>
             {
                 options.UseSqlServer(
                         $"{_dbContainer.ConnectionString};Integrated Security=True;TrustServerCertificate=True;Trusted_Connection=False")
                     .UseSnakeCaseNamingConvention();
             });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = "Test";
+                options.DefaultChallengeScheme = "Test";
+            });
+            
+            services.AddTransient<IAuthenticationSchemeProvider, MockSchemeProvider>();
+
         });
     }
 

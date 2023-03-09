@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using GPTOverflow.API.Tests.Acceptance._config.Brokers.Contracts;
+using GPTOverflow.Core.CrossCuttingConcerns.Utils;
 using GPTOverflow.Core.StackExchange.Brokers.Persistence;
 using GPTOverflow.Core.UserManagement.Brokers.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -25,11 +26,11 @@ public partial class UsersControllerTests
         response.Should().NotBeNull();
         response.Id.Should().NotBeNull();
         response.Email.Should().Be(email);
-        response.Username.Should().Be(CreateUsername(email));
+        response.Username.Should().Be(DomainUtils.CreateUsername(email));
         response.Suspended.Should().BeFalse();
         response.Status.Should().Be("Active");
         
-        var scope = _api.Services.GetService<IServiceScopeFactory>()?.CreateScope();
+        using var scope = _api.Services.GetService<IServiceScopeFactory>()?.CreateScope();
         var userManagementDbContext = scope?.ServiceProvider.GetService<UserManagementDbContext>();
         var stackExchangeDbContext = scope?.ServiceProvider.GetService<StackExchangeDbContext>();
 
