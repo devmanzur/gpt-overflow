@@ -6,7 +6,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1829ED75-0
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTOverflow.Core", "src\GPTOverflow.Core\GPTOverflow.Core.csproj", "{FD6F1312-F86E-412F-92EF-4D3C7B93E2F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTOverflow.Core.UnitTests", "test\GPTOverflow.Core.UnitTests\GPTOverflow.Core.UnitTests.csproj", "{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTOverflow.Core.Tests.Unit", "test\GPTOverflow.Core.Tests.Unit\GPTOverflow.Core.Tests.Unit.csproj", "{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTOverflow.API", "src\GPTOverflow.API\GPTOverflow.API.csproj", "{21DB07AC-365B-4FBE-BF23-172D41838288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GPTOverflow.API.Tests.Acceptance", "test\GPTOverflow.API.Tests.Acceptance\GPTOverflow.API.Tests.Acceptance.csproj", "{28495D64-0B4E-41CD-A80A-271DB5B196AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,6 +20,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{FD6F1312-F86E-412F-92EF-4D3C7B93E2F7} = {C6121034-B7FB-490B-99F2-C567C87E862F}
 		{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D} = {1829ED75-0E8F-4A37-A5E4-90C8DDFD89AB}
+		{21DB07AC-365B-4FBE-BF23-172D41838288} = {C6121034-B7FB-490B-99F2-C567C87E862F}
+		{28495D64-0B4E-41CD-A80A-271DB5B196AC} = {1829ED75-0E8F-4A37-A5E4-90C8DDFD89AB}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FD6F1312-F86E-412F-92EF-4D3C7B93E2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -26,5 +32,13 @@ Global
 		{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{567A7F93-E9BF-4BF1-804E-BF9D94B4BC2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21DB07AC-365B-4FBE-BF23-172D41838288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21DB07AC-365B-4FBE-BF23-172D41838288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21DB07AC-365B-4FBE-BF23-172D41838288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21DB07AC-365B-4FBE-BF23-172D41838288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28495D64-0B4E-41CD-A80A-271DB5B196AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28495D64-0B4E-41CD-A80A-271DB5B196AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28495D64-0B4E-41CD-A80A-271DB5B196AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28495D64-0B4E-41CD-A80A-271DB5B196AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

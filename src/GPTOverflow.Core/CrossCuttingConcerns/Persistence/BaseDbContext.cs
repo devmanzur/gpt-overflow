@@ -31,33 +31,13 @@ public abstract class BaseDbContext<T> : DbContext where T : DbContext
         }
     }
 
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-    {
-        SoftDelete();
-        Audit();
-        var changes = TrackChanges();
-        var changesMade = await base.SaveChangesAsync(cancellationToken);
-        if (changesMade > 0) await DomainEventsDispatcher.DispatchEventsAsync(changes);
-        return changesMade;
-    }
-
-    public override int SaveChanges()
-    {
-        SoftDelete();
-        Audit();
-        var changes = TrackChanges();
-        var changesMade = base.SaveChanges();
-        if (changesMade > 0) DomainEventsDispatcher.DispatchEvents(changes);
-        return changesMade;
-    }
-
     public override int SaveChanges(bool acceptAllChangesOnSuccess)
     {
         SoftDelete();
         Audit();
-        var changes = TrackChanges();
+        var events = CollectEvents();
         var changesMade = base.SaveChanges(acceptAllChangesOnSuccess);
-        if (changesMade > 0) DomainEventsDispatcher.DispatchEvents(changes);
+        if (changesMade > 0 && events.Any()) DomainEventsDispatcher.DispatchEvents(events);
         return changesMade;
     }
 
@@ -66,23 +46,22 @@ public abstract class BaseDbContext<T> : DbContext where T : DbContext
     {
         SoftDelete();
         Audit();
-        var changes = TrackChanges();
+        var events = CollectEvents();
         var changesMade = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-        if (changesMade > 0) await DomainEventsDispatcher.DispatchEventsAsync(changes);
+        if (changesMade > 0 && events.Any()) await DomainEventsDispatcher.DispatchEventsAsync(events);
         return changesMade;
     }
 
     #region Change tracking
 
-    private List<EntityEntry<AggregateRoot>> TrackChanges()
+    private List<EntityEntry<AggregateRoot>> CollectEvents()
     {
-        var changes = this.ChangeTracker
+        var domainEvents = this.ChangeTracker
             .Entries<AggregateRoot>()
-            .Where(x =>
-                HasDomainEvents(x) || HasBeenAddedOrRemoved(x)
+            .Where(HasDomainEvents
             ).ToList();
 
-        return changes;
+        return domainEvents;
     }
 
     private void Audit()
